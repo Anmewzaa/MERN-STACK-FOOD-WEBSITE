@@ -22,6 +22,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api", require("./routes/data"));
+app.use("/auth", require("./routes/auth"));
 
 // Listen
 const port = process.env.PORT || 5500;
