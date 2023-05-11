@@ -49,7 +49,7 @@ exports.createFoods = async (req, res) => {
       foodType,
     })
       .then((data) => {
-        res.json(data).status(201);
+        res.json("Success").status(201);
       })
       .catch((err) => res.json(err));
   } catch (err) {
@@ -63,7 +63,7 @@ exports.removeFoods = async (req, res) => {
   try {
     await Foods.findOneAndRemove({ foodId })
       .then((data) => {
-        res.json(data).status(200);
+        res.json("Success").status(200);
       })
       .catch((err) => res.json(err));
   } catch (err) {
@@ -80,8 +80,8 @@ exports.updateFoods = async (req, res) => {
       { foodId },
       { foodName, foodImage, foodMaterial, foodType }
     )
-      .then((data) => {
-        res.json(data).status(200);
+      .then(() => {
+        res.json("Success").status(200);
       })
       .catch((err) => res.json(err));
   } catch (err) {
