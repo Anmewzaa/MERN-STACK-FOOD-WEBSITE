@@ -1,4 +1,4 @@
-// Last update 10/05/2566 14:10
+// Last update 11/05/2566
 
 const express = require("express");
 const cors = require("cors");
@@ -20,7 +20,7 @@ mongoose
 // Middlewares
 app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
+app.use(morgan("common"));
 
 // Routes
 app.use("/api", require("./routes/data"));
