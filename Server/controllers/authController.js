@@ -33,10 +33,13 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { username, password } = req.body;
   if (!(username && password)) {
-    res.send("Input required").status(400);
+    return res.send("Input required").status(400);
   }
   try {
     var user = await User.findOne({ username });
+    if (!user) {
+      return res.send("Invalid username");
+    }
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       const token = jwt.sign({ username }, process.env.JWT_SECRET, {
