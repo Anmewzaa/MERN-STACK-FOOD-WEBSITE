@@ -1,7 +1,7 @@
 const MainPage = () => {
   return (
-    <div className="">
-      <p>Main page</p>
+    <div className="mainpage-container">
+      <div className="app-info"></div>
     </div>
   );
 };

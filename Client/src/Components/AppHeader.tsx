@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./AppHeader.scss";
 
 const AppHeader = () => {
   return (
