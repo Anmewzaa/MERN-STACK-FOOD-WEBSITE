@@ -4,7 +4,7 @@ import AppHeader from "../Components/AppHeader";
 
 const Layout = () => {
   return (
-    <div className="main-container">
+    <div className="xl:container mx-auto">
       <AppHeader />
       <Outlet />
     </div>

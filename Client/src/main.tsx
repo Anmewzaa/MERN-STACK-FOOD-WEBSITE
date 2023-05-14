@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -8,6 +9,9 @@ import Layout from "./Layout/Layout";
 
 // Page
 import MainPage from "./Pages/MainPage";
+import LoginPage from "./Pages/LoginPage";
+import NotFoundPage from "./Pages/NotFoundPage";
+import AboutPage from "./Pages/AboutPage";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +22,19 @@ const router = createBrowserRouter([
         path: "/",
         element: <MainPage />,
       },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 
