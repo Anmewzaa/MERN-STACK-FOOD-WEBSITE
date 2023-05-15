@@ -1,4 +1,22 @@
+import { useState } from "react";
+import Axios from "axios";
+
 const LoginPage = () => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const loginProcess = () => {
+    const login = async () => {
+      await Axios.post(`${import.meta.env.VITE_AUTH}/login`, {
+        username,
+        password,
+      }).then((data) => {
+        console.log(data.data);
+      });
+    };
+    login();
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -8,13 +26,21 @@ const LoginPage = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form
+          className="space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            loginProcess();
+          }}
+        >
           <div>
             <label className="block text-sm font-medium leading-6 text-gray-900">
               Username
             </label>
             <div className="mt-2">
               <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 name="username"
                 type="text"
                 required
@@ -34,7 +60,8 @@ const LoginPage = () => {
             </div>
             <div className="mt-2">
               <input
-                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 name="password"
                 type="password"
                 autoComplete="current-password"

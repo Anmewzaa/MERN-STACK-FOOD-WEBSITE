@@ -22,7 +22,7 @@ const NavItem = [
 ];
 
 const AppHeader = () => {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
   const handleNav = () => {
     setNav(!nav);
   };

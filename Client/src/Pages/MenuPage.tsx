@@ -4,6 +4,8 @@ import { FoodType } from "../Types/FoodType";
 
 const MenuPage = () => {
   const [foods, setFoods] = useState<FoodType[]>([]);
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     const getData = async () => {
       await Axios.get(`${import.meta.env.VITE_API}/get`).then((data) =>
@@ -12,10 +14,27 @@ const MenuPage = () => {
     };
     getData();
   }, []);
+
+  const searchFilter = foods.filter((food) => {
+    if (search === "") {
+      return food;
+    }
+    return food.foodName.includes(search) || food.foodType.includes(search);
+  });
+
   return (
     <div>
+      <div>
+        <input
+          type="text"
+          placeholder="กรอกชื่ออาหาร หรือ ชนิดอาหาร"
+          className="border w-full mb-4 p-2 rounded-lg"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-6 sm:gap-5">
-        {foods.map((food) => (
+        {searchFilter.map((food) => (
           <div key={food.foodId}>
             <img
               src={food.foodImage}
