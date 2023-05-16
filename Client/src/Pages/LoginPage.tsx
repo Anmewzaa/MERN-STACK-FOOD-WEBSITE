@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
+import { authenticate, checkToken } from "../Services/Authorize";
 
 const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    checkToken() && console.log("Token");
+  }, []);
 
   const loginProcess = () => {
     const login = async () => {
@@ -11,7 +16,9 @@ const LoginPage = () => {
         username,
         password,
       }).then((data) => {
-        console.log(data.data);
+        authenticate(data.data, () => {
+          window.location.replace("/");
+        });
       });
     };
     login();

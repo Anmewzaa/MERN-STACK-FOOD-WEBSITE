@@ -1,41 +1,55 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-
-const NavItem = [
-  {
-    name: "Home",
-    path: "/",
-  },
-  {
-    name: "Menu",
-    path: "/menu",
-  },
-  {
-    name: "About",
-    path: "/about",
-  },
-  {
-    name: "Login",
-    path: "/login",
-  },
-];
+import { checkToken, logout } from "../Services/Authorize";
 
 const AppHeader = () => {
   const [nav, setNav] = useState(true);
   const handleNav = () => {
     setNav(!nav);
   };
+  const logoutProcess = () => {
+    logout(() => window.location.replace("/login"));
+  };
 
   return (
-    <div className="flex justify-between items-center h-20 px-6">
-      <h1 className="w-full text-3xl font-bold">ANMEW.</h1>
+    <div className="flex justify-between items-center h-20">
+      <h1
+        className="w-full text-3xl font-bold cursor-pointer"
+        onClick={() => {
+          window.location.replace("/");
+        }}
+      >
+        ANMEW.
+      </h1>
       <ul className="hidden : md:flex">
-        {NavItem.map((item) => (
-          <Link key={item.name} to={item.path} className="p-4">
-            {item.name}
+        <Link to={"/"} className="p-4">
+          Home
+        </Link>
+        <Link to={"/menu"} className="p-4">
+          Menu
+        </Link>
+        <Link to={"/about"} className="p-4">
+          About
+        </Link>
+        {checkToken() ? (
+          <>
+            <Link to={"/manager"} className="p-4">
+              Manager
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
+        {checkToken() ? (
+          <Link to={"/logout"} className="p-4" onClick={logoutProcess}>
+            Logout
           </Link>
-        ))}
+        ) : (
+          <Link to={"/login"} className="p-4">
+            Login
+          </Link>
+        )}
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineMenu size={20} /> : <AiOutlineClose size={20} />}
@@ -48,16 +62,55 @@ const AppHeader = () => {
         }
       >
         <ul className="flex flex-col">
-          {NavItem.map((item) => (
+          <Link
+            to={"/"}
+            className="p-6 uppercase border-b border-gray-200"
+            onClick={() => {
+              handleNav();
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            to={"/menu"}
+            className="p-6 uppercase border-b border-gray-200"
+            onClick={() => {
+              handleNav();
+            }}
+          >
+            Menu
+          </Link>
+          <Link
+            to={"/about"}
+            className="p-6 uppercase border-b border-gray-200"
+            onClick={() => {
+              handleNav();
+            }}
+          >
+            About
+          </Link>
+          {checkToken() ? (
             <Link
-              onClick={() => setNav(true)}
-              key={item.name}
-              to={item.path}
+              to={"/logout"}
               className="p-6 uppercase border-b border-gray-200"
+              onClick={() => {
+                handleNav();
+                logoutProcess();
+              }}
             >
-              {item.name}
+              Logout
             </Link>
-          ))}
+          ) : (
+            <Link
+              to={"/login"}
+              className="p-6 uppercase border-b border-gray-200"
+              onClick={() => {
+                handleNav();
+              }}
+            >
+              login
+            </Link>
+          )}
         </ul>
       </div>
     </div>
