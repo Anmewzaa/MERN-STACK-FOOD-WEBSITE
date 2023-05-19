@@ -33,15 +33,6 @@ const AppHeader = () => {
           About
         </Link>
         {checkToken() ? (
-          <>
-            <Link to={"/manager"} className="p-4">
-              Manager
-            </Link>
-          </>
-        ) : (
-          <></>
-        )}
-        {checkToken() ? (
           <Link to={"/logout"} className="p-4" onClick={logoutProcess}>
             Logout
           </Link>

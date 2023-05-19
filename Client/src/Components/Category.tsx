@@ -1,30 +1,14 @@
-import { useState, useEffect } from "react";
-import Axios from "axios";
 import { FoodType } from "../Types/FoodType";
 
-const Category = ({ type }: { type: string }) => {
-  const [foods, setFoods] = useState<FoodType[]>([]);
-  useEffect(() => {
-    const getData = async () => {
-      await Axios.get(`${import.meta.env.VITE_API}/get`).then((data) =>
-        setFoods(data.data)
-      );
-    };
-    getData();
-  }, []);
-
-  const foodFilter = foods.filter((food) => {
-    if (type === "all") {
-      return food;
-    }
-    return food.foodType === `${type}`;
-  });
+const Category = (menu: FoodType) => {
+  // const navigate = useNavigate();
 
   return (
     <div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-6 sm:gap-5">
-        {foodFilter.map((food) => (
-          <div key={food.foodId}>
+      {JSON.stringify(menu)}
+      {/* <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-6 sm:gap-5">
+        {foods.map((food) => (
+          <div key={food.foodId} className="cursor-pointer">
             <img
               src={food.foodImage}
               alt={food.foodName}
@@ -33,7 +17,7 @@ const Category = ({ type }: { type: string }) => {
             <h2 className="font-bold my-4">{food.foodName}</h2>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

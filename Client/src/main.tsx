@@ -13,7 +13,7 @@ import LoginPage from "./Pages/LoginPage";
 import NotFoundPage from "./Pages/NotFoundPage";
 import AboutPage from "./Pages/AboutPage";
 import MenuPage from "./Pages/MenuPage";
-import Manager from "./Pages/Manager";
+import FoodInfoPage from "./Pages/FoodInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
         element: <MenuPage />,
       },
       {
-        path: "/manager",
-        element: <Manager />,
+        path: "/menu/:id",
+        element: <FoodInfoPage />,
       },
       {
         path: "/login",
