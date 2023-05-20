@@ -17,7 +17,11 @@ const FoodInfoPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <img src={food?.foodImage} alt={food?.foodName} className="w-1/2" />
+      <img
+        src={food?.foodImage}
+        alt={food?.foodName}
+        className="w-1/2 rounded-lg"
+      />
       <h2>{food?.foodName}</h2>
       <p>{food?.foodType}</p>
       <p>{JSON.stringify(food?.foodMaterial)}</p>
