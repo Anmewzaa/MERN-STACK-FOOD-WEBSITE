@@ -12,9 +12,11 @@ const LoginPage = () => {
         username,
         password,
       }).then((data) => {
-        authenticate(data.data, () => {
-          window.location.replace("/");
-        });
+        if (data.data !== "Invalid password") {
+          authenticate(data.data, () => {
+            window.location.replace("/");
+          });
+        }
       });
     };
     login();
