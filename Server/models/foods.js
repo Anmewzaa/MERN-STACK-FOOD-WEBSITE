@@ -9,6 +9,10 @@ const FoodSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  foodDescription: {
+    type: String,
+    required: true,
+  },
   foodImage: {
     type: String,
     required: true,

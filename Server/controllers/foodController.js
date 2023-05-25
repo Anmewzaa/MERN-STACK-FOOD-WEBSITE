@@ -30,8 +30,9 @@ exports.getOne = async (req, res) => {
 
 // Create Foods
 exports.createFoods = async (req, res) => {
-  const { foodName, foodImage, foodMaterial, foodType } = req.body;
-  if (!(foodName && foodImage && foodMaterial && foodType)) {
+  const { foodName, foodDescription, foodImage, foodMaterial, foodType } =
+    req.body;
+  if (!(foodName && foodDescription && foodImage && foodMaterial && foodType)) {
     return res.send("Input required").status(400);
   }
   await Foods.findOne({ foodName }).then((data) => {
@@ -44,6 +45,7 @@ exports.createFoods = async (req, res) => {
     await Foods.create({
       foodId,
       foodName,
+      foodDescription,
       foodImage,
       foodMaterial,
       foodType,
@@ -74,11 +76,12 @@ exports.removeFoods = async (req, res) => {
 // Update Foods
 exports.updateFoods = async (req, res) => {
   const { foodId } = req.params;
-  const { foodName, foodImage, foodMaterial, foodType } = req.body;
+  const { foodName, foodDescription, foodImage, foodMaterial, foodType } =
+    req.body;
   try {
     await Foods.findOneAndUpdate(
       { foodId },
-      { foodName, foodImage, foodMaterial, foodType }
+      { foodName, foodDescription, foodImage, foodMaterial, foodType }
     )
       .then(() => {
         res.json("Success").status(200);
