@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { checkToken, logout } from "../Services/Authorize";
+import Swal from "sweetalert2";
 
 const AppHeader = () => {
   const [nav, setNav] = useState(true);
@@ -9,7 +10,17 @@ const AppHeader = () => {
     setNav(!nav);
   };
   const logoutProcess = () => {
-    logout(() => window.location.replace("/login"));
+    Swal.fire({
+      title: "ต้องการจะออกจากระบบหรือไม่ ?",
+      text: "",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout(() => window.location.replace("/login"));
+      }
+    });
   };
 
   return (
@@ -33,9 +44,9 @@ const AppHeader = () => {
           About
         </Link>
         {checkToken() ? (
-          <Link to={"/logout"} className="p-4" onClick={logoutProcess}>
+          <button className="p-4" onClick={logoutProcess}>
             Logout
-          </Link>
+          </button>
         ) : (
           <Link to={"/login"} className="p-4">
             Login
@@ -81,8 +92,7 @@ const AppHeader = () => {
             About
           </Link>
           {checkToken() ? (
-            <Link
-              to={"/logout"}
+            <button
               className="p-6 uppercase border-b border-gray-200"
               onClick={() => {
                 handleNav();
@@ -90,7 +100,7 @@ const AppHeader = () => {
               }}
             >
               Logout
-            </Link>
+            </button>
           ) : (
             <Link
               to={"/login"}

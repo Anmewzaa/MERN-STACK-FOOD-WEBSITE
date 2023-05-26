@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
-import { authenticate } from "../Services/Authorize";
+import { authenticate, checkToken } from "../Services/Authorize";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    if (checkToken()) {
+      window.location.replace("/");
+    }
+  }, []);
 
   const loginProcess = () => {
     const login = async () => {
@@ -14,7 +21,22 @@ const LoginPage = () => {
       }).then((data) => {
         if (data.data !== "Invalid password") {
           authenticate(data.data, () => {
-            window.location.replace("/");
+            Swal.fire({
+              title: "Login Success",
+              text: "",
+              icon: "success",
+              confirmButtonText: "Yes",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.replace("/");
+              }
+            });
+          });
+        } else {
+          Swal.fire({
+            title: "Login Failed",
+            text: "",
+            icon: "error",
           });
         }
       });

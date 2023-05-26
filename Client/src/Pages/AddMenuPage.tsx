@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { checkToken } from "../Services/Authorize";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import Swal from "sweetalert2";
 
 interface foodMeterialType {
   name: string;
@@ -50,7 +52,7 @@ const AddMenuPage = () => {
   const [imageURL, setImageURL] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [meterial, setMeterial] = useState<string[]>([]);
+  const [material, setMaterial] = useState<string[]>([]);
   const [type, setType] = useState<string>("");
 
   useEffect(() => {
@@ -59,8 +61,40 @@ const AddMenuPage = () => {
     }
   }, [navigate]);
 
+  const createFood = async () => {
+    if (!(imageURL && name && description && material && type)) {
+      return console.log("Input required");
+    }
+    await Axios.post(
+      `${import.meta.env.VITE_API}/create`,
+      {
+        foodName: name,
+        foodDescription: description,
+        foodImage: imageURL,
+        foodMaterial: material,
+        foodType: type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${checkToken()}`,
+        },
+      }
+    ).then(() => {
+      Swal.fire({
+        title: "แจ้งเตือน",
+        text: "เพิ่มรายการเรียบร้อย",
+        icon: "success",
+        confirmButtonText: "ตกลง",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.replace("/menu");
+        }
+      });
+    });
+  };
+
   return (
-    <div className="grid grid-cols-2 mt-4 gap-8">
+    <div className="grid md:grid-cols-2 mt-4 gap-8">
       <div className="flex justify-center">
         <img
           src={imageURL}
@@ -68,12 +102,7 @@ const AddMenuPage = () => {
           className="w-[100%] rounded-lg max-h-[80vh] bg-center bg-cover"
         />
       </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log("Submit form");
-        }}
-      >
+      <div>
         <div className="mb-2">
           <h1 className="mb-2 text-lg font-bold">Food image</h1>
           <input
@@ -110,14 +139,14 @@ const AddMenuPage = () => {
               <div className="mb-1" key={item.name}>
                 <input
                   onClick={() => {
-                    if (meterial.includes(`${item.name}`)) {
-                      setMeterial(
-                        meterial.filter((foodType) => {
+                    if (material.includes(`${item.name}`)) {
+                      setMaterial(
+                        material.filter((foodType) => {
                           return foodType !== `${item.name}`;
                         })
                       );
                     } else {
-                      setMeterial([...meterial, `${item.name}`]);
+                      setMaterial([...material, `${item.name}`]);
                     }
                   }}
                   type="checkbox"
@@ -134,7 +163,7 @@ const AddMenuPage = () => {
             <div
               key={item.name}
               className={`mb-1 border inline-block mr-2 ${
-                item.name === `${type}` ? "bg-green-300" : ""
+                item.name === `${type}` ? "bg-slate-300" : ""
               } rounded-lg`}
             >
               <input
@@ -146,8 +175,19 @@ const AddMenuPage = () => {
             </div>
           ))}
         </div>
-        <button className="border">Add</button>
-      </form>
+        <button
+          className="border rounded-lg px-5 py-2 mt-4 bg-green-500 text-white"
+          onClick={() => createFood()}
+        >
+          Add
+        </button>
+        <button
+          className="border rounded-lg px-5 py-2 mt-4 ml-2 bg-red-500 text-white"
+          onClick={() => window.location.reload()}
+        >
+          Clear
+        </button>
+      </div>
     </div>
   );
 };

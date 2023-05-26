@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { FoodType } from "../Types/FoodType";
 import { checkToken } from "../Services/Authorize";
+import Swal from "sweetalert2";
 
 const MenuPage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,16 @@ const MenuPage = () => {
     };
     getData();
   }, []);
+
+  const deleteFood = async (foodid: string) => {
+    await Axios.delete(`${import.meta.env.VITE_API}/delete/${foodid}`, {
+      headers: {
+        Authorization: `Bearer ${checkToken()}`,
+      },
+    }).then((data) => {
+      console.log(data);
+    });
+  };
 
   const searchFilter = foods.filter((food) => {
     if (search === "") {
@@ -47,26 +58,68 @@ const MenuPage = () => {
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-6 sm:gap-5 cursor-pointer">
         {searchFilter.map((food) => (
-          <div
-            key={food.foodId}
-            onClick={() => navigate(`/menu/${food.foodId}`)}
-          >
+          <div key={food.foodId}>
             <img
+              onClick={() => navigate(`/menu/${food.foodId}`)}
               src={food.foodImage}
               alt={food.foodName}
               className="md:h-[300px] h-[200px] w-[100%] object-cover rounded-lg"
             />
-            <div className="flex justify-between items-center my-4 mx-1">
-              <h2 className="font-bold">{food.foodName}</h2>
-              <p
-                className={`inline-block p-2 rounded-lg ${
-                  food.foodType === "อาหารคลีน" ? "bg-lime-300" : ""
-                } ${food.foodType === "อาหารเช้า" ? "bg-yellow-300" : ""} ${
-                  food.foodType === "เครื่องดื่ม" ? "bg-sky-300" : ""
-                }`}
+            <div className="flex justify-between items-center mt-4 mb-3 mx-1">
+              <h2
+                className="font-bold"
+                onClick={() => navigate(`/menu/${food.foodId}`)}
               >
-                {food.foodType}
-              </p>
+                {food.foodName}
+              </h2>
+              {!checkToken() ? (
+                <>
+                  <p
+                    className={`inline-block p-2 rounded-lg ${
+                      food.foodType === "อาหารเพื่อสุขภาพ" ? "bg-lime-200" : ""
+                    } ${food.foodType === "อาหารเช้า" ? "bg-yellow-200" : ""} ${
+                      food.foodType === "อาหารเที่ยง" ? "bg-yellow-200" : ""
+                    } ${food.foodType === "อาหารเย็น" ? "bg-yellow-200" : ""} ${
+                      food.foodType === "ขนมหวาน" ? "bg-pink-200" : ""
+                    }${food.foodType === "เครื่องดื่ม" ? "bg-sky-200" : ""}`}
+                  >
+                    {food.foodType}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="inline-block">
+                    <button className="rounded-lg px-4 py-1.5 mr-2 border-2 border-sky-200">
+                      Edit
+                    </button>
+                    <button
+                      className="rounded-lg px-4 py-1.5 border-2 border-red-200 cursor-pointer"
+                      onClick={() => {
+                        Swal.fire({
+                          title: "ต้องการลบหรือไม่",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonText: "Yes",
+                          cancelButtonText: "No",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            deleteFood(food.foodId);
+                            Swal.fire(
+                              "Deleted!",
+                              "ลบเรียบร้อยเเล้ว",
+                              "success"
+                            ).then(() => {
+                              window.location.reload();
+                            });
+                          }
+                        });
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         ))}
