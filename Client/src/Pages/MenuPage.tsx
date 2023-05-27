@@ -33,7 +33,10 @@ const MenuPage = () => {
     if (search === "") {
       return food;
     }
-    return food.foodName.includes(search) || food.foodType.includes(search);
+    return (
+      food.foodName.toLowerCase().includes(search.toLowerCase()) ||
+      food.foodType.toLowerCase().includes(search.toLowerCase())
+    );
   });
 
   return (
@@ -58,16 +61,16 @@ const MenuPage = () => {
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-6 sm:gap-5 cursor-pointer">
         {searchFilter.map((food) => (
-          <div key={food.foodId}>
+          <div key={food.foodId} className="md:py-0 py-2">
             <img
               onClick={() => navigate(`/menu/${food.foodId}`)}
               src={food.foodImage}
               alt={food.foodName}
               className="md:h-[300px] h-[200px] w-[100%] object-cover rounded-lg"
             />
-            <div className="flex justify-between items-center mt-4 mb-3 mx-1">
+            <div className="flex justify-between items-center mt-3 mb-3">
               <h2
-                className="font-bold"
+                className="font-bold text-2xl"
                 onClick={() => navigate(`/menu/${food.foodId}`)}
               >
                 {food.foodName}
@@ -75,13 +78,13 @@ const MenuPage = () => {
               {!checkToken() ? (
                 <>
                   <p
-                    className={`inline-block p-2 rounded-lg ${
-                      food.foodType === "อาหารเพื่อสุขภาพ" ? "bg-lime-200" : ""
-                    } ${food.foodType === "อาหารเช้า" ? "bg-yellow-200" : ""} ${
-                      food.foodType === "อาหารเที่ยง" ? "bg-yellow-200" : ""
-                    } ${food.foodType === "อาหารเย็น" ? "bg-yellow-200" : ""} ${
-                      food.foodType === "ขนมหวาน" ? "bg-pink-200" : ""
-                    }${food.foodType === "เครื่องดื่ม" ? "bg-sky-200" : ""}`}
+                    className={`inline-block py-2 px-4 rounded-lg ${
+                      food.foodType === "อาหารเพื่อสุขภาพ" ? "bg-[#c0eb75]" : ""
+                    } ${food.foodType === "อาหารเช้า" ? "bg-[#ffe066]" : ""} ${
+                      food.foodType === "อาหารเที่ยง" ? "bg-[#ffe066]" : ""
+                    } ${food.foodType === "อาหารเย็น" ? "bg-[#ffe066]" : ""} ${
+                      food.foodType === "ขนมหวาน" ? "bg-[#faa2c1]" : ""
+                    }${food.foodType === "เครื่องดื่ม" ? "bg-[#99e9f2]" : ""}`}
                   >
                     {food.foodType}
                   </p>

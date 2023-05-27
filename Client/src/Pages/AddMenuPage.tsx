@@ -63,7 +63,11 @@ const AddMenuPage = () => {
 
   const createFood = async () => {
     if (!(imageURL && name && description && material && type)) {
-      return console.log("Input required");
+      return Swal.fire({
+        title: "กรุณากรอกข้อมูลให้ครบ",
+        text: "",
+        icon: "warning",
+      });
     }
     await Axios.post(
       `${import.meta.env.VITE_API}/create`,

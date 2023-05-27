@@ -25,21 +25,21 @@ const FoodInfoPage = () => {
         />
       </div>
       <div>
-        <div className="mb-4">
-          <h1 className="text-3xl font-bold">{food?.foodName}</h1>
+        <div className="mb-6">
+          <p className="mb-3 text-2xl font-bold">ชื่ออาหาร</p>
+          <p className="border p-2">{food?.foodName}</p>
         </div>
-        <div className="mb-4">
-          <p className="border inline-block p-2 rounded-lg border-slate-400">
-            {food?.foodType}
-          </p>
+        <div className="mb-6">
+          <p className="mb-3 text-2xl font-bold">ประเภทอาหาร</p>
+          <p className="border p-2">{food?.foodType}</p>
         </div>
-        <div className="mb-4">
-          <p className="mb-3 text-3xl font-bold">คำอธิบาย</p>
-          <p>{food?.foodDescription}</p>
+        <div className="mb-6">
+          <p className="mb-3 text-2xl font-bold">คำอธิบาย</p>
+          <p className="border p-2">{food?.foodDescription}</p>
         </div>
-        <div className="mb-4">
-          <p className="mb-3 text-3xl font-bold">วัสถุดิบ</p>
-          <ul>
+        <div className="mb-6">
+          <p className="mb-3 text-2xl font-bold">วัสถุดิบ</p>
+          <ul className="border p-2">
             {food?.foodMaterial.map((item) => (
               <li key={item} className="list-decimal ml-5">
                 {item}

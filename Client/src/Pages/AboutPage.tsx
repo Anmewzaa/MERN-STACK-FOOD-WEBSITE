@@ -1,19 +1,8 @@
-const links = [
-  { name: "Open roles", href: "#" },
-  { name: "Internship program", href: "#" },
-  { name: "Our values", href: "#" },
-  { name: "Meet our leadership", href: "#" },
-];
-const stats = [
-  { name: "Offices worldwide", value: "12" },
-  { name: "Full-time colleagues", value: "300+" },
-  { name: "Hours per week", value: "40" },
-  { name: "Paid time off", value: "Unlimited" },
-];
+const links = [{ name: "Github Profile", href: "https://github.com/Anmewzaa" }];
 
 export default function AboutPage() {
   return (
-    <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 rounded-lg">
+    <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 rounded-lg ">
       <img
         src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1694&q=80"
         alt="Background"
@@ -49,9 +38,14 @@ export default function AboutPage() {
             About us
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-300">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
+            Project รูปแบบ Fullstack โดยในส่วน Frontend ใช้ Vite เป็น build tool
+            สร้าง React+TypeScript เเละ Backend ใช้ Express.js ทำงานร่วมกับ
+            Mongodb โดยเชื่อมโยง Frontend เเละ Backend ด้วย Axios เเละ
+            ตกเเต่งหน้า Website ด้วย TailwindCSS ร่วมไปถึงมีระบบการตรวจสอบตัวตน
+            Authentication ด้วย jason-web-token ผ่าน express-jwt
+          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-300">
+            Project นี้ใช้เป็น Portfolio เท่านั่น <br /> By Punyakon Petchkaew
           </p>
         </div>
         <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
@@ -62,18 +56,6 @@ export default function AboutPage() {
               </a>
             ))}
           </div>
-          <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.name} className="flex flex-col-reverse">
-                <dt className="text-base leading-7 text-gray-300">
-                  {stat.name}
-                </dt>
-                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </div>
     </div>

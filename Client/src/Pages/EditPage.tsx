@@ -92,7 +92,7 @@ const EditPage = () => {
         <img
           src={imageURL}
           alt="food picture"
-          className="w-[100%] rounded-lg md:max-h-[80vh] max-h-[50vh] bg-center bg-cover"
+          className="w-[100%] rounded-lg md:h-[80vh] max-h-[50vh] bg-center bg-cover"
         />
       </div>
       <div>

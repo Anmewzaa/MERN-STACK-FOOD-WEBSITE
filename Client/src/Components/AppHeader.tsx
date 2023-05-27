@@ -63,7 +63,7 @@ const AppHeader = () => {
             : "fixed left-[-100%]"
         }
       >
-        <ul className="flex flex-col">
+        <ul className="flex flex-col sticky">
           <Link
             to={"/"}
             className="p-6 uppercase border-b border-gray-200"
