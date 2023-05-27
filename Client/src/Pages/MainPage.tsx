@@ -6,8 +6,6 @@ import Card from "../Components/Card";
 const MainPage = () => {
   const [foods, setFoods] = useState<FoodType[]>([]);
   const [breakfast, setฺreakfast] = useState<FoodType[]>([]);
-  const [lunchFood, setlunchFood] = useState<FoodType[]>([]);
-  const [dinnerFood, setDinnerFood] = useState<FoodType[]>([]);
   const [cleanFood, setCleanFood] = useState<FoodType[]>([]);
   const [beverage, setBeverage] = useState<FoodType[]>([]);
   useEffect(() => {
