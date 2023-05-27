@@ -21,7 +21,7 @@ const FoodInfoPage = () => {
         <img
           src={food?.foodImage}
           alt={food?.foodName}
-          className="w-[100%] rounded-lg max-h-[80vh] bg-center bg-cover"
+          className="w-[100%] rounded-lg md:max-h-[80vh] max-h-[50vh] bg-center bg-cover"
         />
       </div>
       <div>

@@ -15,6 +15,7 @@ import AboutPage from "./Pages/AboutPage";
 import MenuPage from "./Pages/MenuPage";
 import FoodInfoPage from "./Pages/FoodInfoPage";
 import AddMenuPage from "./Pages/AddMenuPage";
+import EditPage from "./Pages/EditPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/menu/:id",
         element: <FoodInfoPage />,
+      },
+      {
+        path: "/edit/:id",
+        element: <EditPage />,
       },
       {
         path: "/login",

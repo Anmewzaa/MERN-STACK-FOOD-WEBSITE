@@ -89,7 +89,10 @@ const MenuPage = () => {
               ) : (
                 <>
                   <div className="inline-block">
-                    <button className="rounded-lg px-4 py-1.5 mr-2 border-2 border-sky-200">
+                    <button
+                      className="rounded-lg px-4 py-1.5 mr-2 border-2 border-sky-200"
+                      onClick={() => navigate(`/edit/${food.foodId}`)}
+                    >
                       Edit
                     </button>
                     <button
