@@ -20,16 +20,6 @@ const MainPage = () => {
           return item.foodType === "อาหารเช้า";
         })
       );
-      setlunchFood(
-        foods.filter((item) => {
-          return item.foodType === "อาหารเที่ยง";
-        })
-      );
-      setDinnerFood(
-        foods.filter((item) => {
-          return item.foodType === "อาหารเย็น";
-        })
-      );
       setCleanFood(
         foods.filter((item) => {
           return item.foodType === "อาหารเพื่อสุขภาพ";
