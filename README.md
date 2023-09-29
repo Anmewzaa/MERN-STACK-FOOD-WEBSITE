@@ -23,7 +23,7 @@
 1. Clone the repo
 
 ```sh
-git clone https://github.com/ShaanCoding/ReadME-Generator.git
+git clone https://github.com/Anmewzaa/MERN-STACK-FOOD-WEBSITE.git
 ```
 
 2. Use command ทั้ง Frontend และ Backend
